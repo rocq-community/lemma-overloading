@@ -15,80 +15,30 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq fintype.
+From HB Require Import structures.
+From mathcomp Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq fintype.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
 
-Module Ordered.
+HB.mixin Record isTotalOrder T of Equality T := {
+  ord : rel T;
+  irr : irreflexive ord;
+  trans : transitive ord;
+  total : forall x y, [|| ord x y, x == y | ord y x];
+}.
 
-Section RawMixin.
+#[short(type="ordType")]
+HB.structure Definition Order := { T of Equality T & isTotalOrder T }.
 
-Structure mixin_of (T : eqType) :=
-  Mixin {ordering : rel T;
-         _ : irreflexive ordering;
-         _ : transitive ordering;
-         _ : forall x y, [|| ordering x y, x == y | ordering y x]}.
+Arguments ord {s}.
+Arguments irr {s}.
+Arguments trans {s} [y x z].
 
-End RawMixin.
-
-(* the class takes a naked type T and returns all the *)
-(* relatex mixins; the inherited ones and the added ones *)
-Section ClassDef.
-
-Record class_of (T : Type) := Class {
-   base : Equality.class_of T;
-   mixin : mixin_of (EqType T base)}.
-
-Local Coercion base : class_of >-> Equality.class_of.
-
-Structure type : Type := Pack {sort : Type; _ : class_of sort; _ : Type}.
-Local Coercion sort : type >-> Sortclass.
-
-Variables (T : Type) (cT : type).
-Definition class := let: Pack _ c _ as cT' := cT return class_of cT' in c.
-Definition clone c of phant_id class c := @Pack T c T.
-
-(* produce an ordered type out of the inherited mixins *)
-(* equalize m0 and m by means of a phantom; will be exploited *)
-(* further down in the definition of OrdType *)
-Definition pack b (m0 : mixin_of (EqType T b)) :=
-  fun m & phant_id m0 m => Pack (@Class T b m) T.
-
-Definition eqType := Eval hnf in EqType cT class.
-
-End ClassDef.
-
-Module Exports.
-Coercion sort : type >-> Sortclass.
-Coercion eqType : type >-> Equality.type.
-Canonical Structure eqType.
-Notation ordType := Ordered.type.
-Notation OrdMixin := Mixin.
-Notation OrdType T m := (@pack T _ m _ id).
-Definition ord T : rel (sort T) := (ordering (mixin (class T))).
-Notation "[ 'ordType' 'of' T 'for' cT ]" := (@clone T cT _ id)
-  (at level 0, format "[ 'ordType' 'of' T 'for' cT ]") : form_scope.
-Notation "[ 'ordType' 'of' T ]" := (@clone T _ _ id)
-  (at level 0, format "[ 'ordType' 'of' T ]") : form_scope.
-End Exports.
-End Ordered.
-Export Ordered.Exports.
-
-Prenex Implicits ord.
+(* Prenex Implicits ord. *)
 
 Section Lemmas.
 Variable T : ordType.
-
-Lemma irr : irreflexive (@ord T).
-Proof. by case: T=>s [b [m]]. Qed.
-
-Lemma trans : transitive (@ord T).
-Proof. by case: T=>s [b [m]]. Qed.
-
-Lemma total (x y : T) : [|| ord x y, x == y | ord y x].
-Proof. by case: T x y=>s [b [m]]. Qed.
 
 Lemma nsym (x y : T) : ord x y -> ord y x -> False.
 Proof. by move=>E1 E2; move: (trans E1 E2); rewrite irr. Qed.
@@ -120,9 +70,8 @@ Lemma irr_ltn_nat : irreflexive ltn. Proof. by move=>x; rewrite /= ltnn. Qed.
 Lemma trans_ltn_nat : transitive ltn. Proof. by apply: ltn_trans. Qed.
 Lemma total_ltn_nat : forall x y, [|| x < y, x == y | y < x].
 Proof. by move=>*; case: ltngtP. Qed.
-
-Definition nat_ordMixin := OrdMixin irr_ltn_nat trans_ltn_nat total_ltn_nat.
-Canonical Structure nat_ordType := OrdType nat nat_ordMixin.
+HB.instance Definition _ :=
+  isTotalOrder.Build nat irr_ltn_nat trans_ltn_nat total_ltn_nat.
 End NatOrd.
 
 Section ProdOrd.
@@ -153,11 +102,16 @@ rewrite (eq_sym y1) -pair_eqE /= H1 /=.
 by move: (total x1 y1); rewrite H1.
 Qed.
 
-Definition prod_ordMixin := OrdMixin irr_lex trans_lex total_lex.
-Canonical Structure prod_ordType := Eval hnf in OrdType (K * T) prod_ordMixin.
+HB.instance Definition _ :=
+  isTotalOrder.Build (K * T)%type irr_lex trans_lex total_lex.
 End ProdOrd.
 
 Section FinTypeOrd.
+
+Definition fin_order (T : Type) := T.
+
+HB.instance Definition _ (T : eqType) := Equality.copy (fin_order T) T.
+
 Variable T : finType.
 
 Definition ordf : rel T :=
@@ -176,12 +130,9 @@ have [H1 H2]: x \in enum T /\ y \in enum T by rewrite !mem_enum.
 by rewrite -(nth_index x H1) -(nth_index x H2) H eq_refl.
 Qed.
 
-Definition fin_ordMixin := OrdMixin irr_ordf trans_ordf total_ordf.
+HB.instance Definition _ :=
+  isTotalOrder.Build (fin_order T) irr_ordf trans_ordf total_ordf.
+
 End FinTypeOrd.
 
-(* notation to let us write I_n instead of (ordinal_finType n) *)
-Notation "[ 'fin_ordMixin' 'of' T ]" :=
-  (fin_ordMixin _ : Ordered.mixin_of [eqType of T]) (at level 0).
-
-Definition ordinal_ordMixin n := [fin_ordMixin of 'I_n].
-Canonical Structure ordinal_ordType n := OrdType 'I_n (ordinal_ordMixin n).
+HB.instance Definition _ (n : nat) := Order.copy 'I_n (fin_order 'I_n).

@@ -15,10 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool eqtype ssrfun seq path.
-From LemmaOverloading
-Require Import ordtype prelude.
+From HB Require Import structures.
+From mathcomp Require Import ssreflect ssrbool eqtype ssrfun seq path.
+From LemmaOverloading Require Import ordtype prelude.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -717,8 +716,6 @@ case: eqP; first by move/fmapE=>->; apply: ReflectT.
 by move=>H; apply: ReflectF; move/fmapE; move/H.
 Qed.
 
-Canonical Structure fmap_eqMixin := EqMixin feqP.
-Canonical Structure fmap_eqType := EqType (finMap K V) fmap_eqMixin.
+HB.instance Definition _ := hasDecEq.Build (finMap K V) feqP.
+
 End EqType.
-
-

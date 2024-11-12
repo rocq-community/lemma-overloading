@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq.
-From LemmaOverloading
-Require Import prelude prefix perms heaps.
+From mathcomp Require Import ssreflect ssrbool ssrnat ssrfun eqtype seq.
+From LemmaOverloading Require Import prelude prefix perms heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.

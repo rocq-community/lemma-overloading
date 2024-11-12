@@ -15,10 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrfun ssrnat eqtype seq.
-From LemmaOverloading
-Require Import prelude heaps rels hprop domains.
+From HB Require Import structures.
+From mathcomp Require Import ssreflect ssrbool ssrfun ssrnat eqtype seq.
+From LemmaOverloading Require Import prelude heaps rels hprop domains.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -38,8 +37,7 @@ move=>[x][y]//=; case: eqP=>[->|*];constructor=>//.
 by move=>[*].
 Qed.
 
-Canonical Structure exn_eqMixin := EqMixin eqexnP.
-Canonical Structure exn_eqType := EqType exn exn_eqMixin.
+HB.instance Definition _ := hasDecEq.Build exn eqexnP.
 
 (* Answer type *)
 Inductive ans (A : Type) : Type := Val of A | Exn of exn.

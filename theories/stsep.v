@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrnat ssrfun seq eqtype.
-From LemmaOverloading
-Require Import heaps rels hprop stmod.
+From mathcomp Require Import ssreflect ssrbool ssrnat ssrfun seq eqtype.
+From LemmaOverloading Require Import heaps rels hprop stmod.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.

@@ -15,12 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrnat div ssrbool seq.
-From LemmaOverloading
-Require Import prelude finmap ordtype.
-From mathcomp
-Require Import path eqtype.
+From HB Require Import structures.
+From mathcomp Require Import ssreflect ssrfun ssrnat div ssrbool seq.
+From LemmaOverloading Require Import prelude finmap ordtype.
+From mathcomp Require Import path eqtype.
 Require Import Eqdep.
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -43,8 +41,7 @@ Definition eq_ptr (x y : ptr) :=
 Lemma eq_ptrP : Equality.axiom eq_ptr.
 Proof. by case=>x [y] /=; case: eqP=>[->|*]; constructor=>//; case. Qed.
 
-Definition ptr_eqMixin := EqMixin eq_ptrP.
-Canonical Structure ptr_eqType := EqType ptr ptr_eqMixin.
+HB.instance Definition _ := hasDecEq.Build ptr eq_ptrP.
 
 (* some pointer arithmetic: offsetting from a base *)
 
@@ -89,8 +86,8 @@ Proof. by case=>x [y][z]; apply: ltn_trans. Qed.
 Lemma ltn_ptr_total : forall x y : ptr, [|| ltn_ptr x y, x == y | ltn_ptr y x].
 Proof. by case=>x [y]; rewrite ptrE /=; case: ltngtP. Qed.
 
-Definition ptr_ordMixin := OrdMixin ltn_ptr_irr ltn_ptr_trans ltn_ptr_total.
-Canonical Structure ptr_ordType := OrdType ptr ptr_ordMixin.
+HB.instance Definition _ :=
+  isTotalOrder.Build ptr ltn_ptr_irr ltn_ptr_trans ltn_ptr_total.
 
 (*********)
 (* Heaps *)

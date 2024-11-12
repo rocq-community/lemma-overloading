@@ -15,8 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool seq.
+From mathcomp Require Import ssreflect ssrfun ssrbool seq.
 Require Import Setoid.
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -124,16 +123,17 @@ Notation "r1 *p r2" := (PredI r1 r2)
   (at level 45, right associativity) : rel_scope.
 
 Notation "[ 'Pred' : T | E ]" := (SimplPred (fun _ : T => E))
-  (at level 0, format "[ 'Pred' :  T  |  E ]") : fun_scope.
+  (at level 0, format "[ 'Pred' :  T  |  E ]") : function_scope.
 Notation "[ 'Pred' x | E ]" := (SimplPred (fun x => E))
-  (at level 0, x ident, format "[ 'Pred'  x  |  E ]") : fun_scope.
+  (at level 0, x ident, format "[ 'Pred'  x  |  E ]") : function_scope.
 Notation "[ 'Pred' x : T | E ]" := (SimplPred (fun x : T => E))
-  (at level 0, x ident, only parsing) : fun_scope.
+  (at level 0, x ident, only parsing) : function_scope.
 Notation "[ 'Pred' x y | E ]" := (SimplPred (fun t => let: (x, y) := t in E))
-  (at level 0, x ident, y ident, format "[ 'Pred'  x  y  |  E ]") : fun_scope.
+  (at level 0, x ident, y ident, format "[ 'Pred'  x  y  |  E ]") :
+  function_scope.
 Notation "[ 'Pred' x y : T | E ]" :=
   (SimplPred (fun t : (T*T) => let: (x, y) := t in E))
-  (at level 0, x ident, y ident, only parsing) : fun_scope.
+  (at level 0, x ident, y ident, only parsing) : function_scope.
 
 Definition repack_Pred T pT :=
   let: PropPredType _ a mP := pT return {type of @PropPredType T for pT} -> _ in
@@ -207,35 +207,35 @@ Notation "A <=p B" := (SubMem (Mem A) (Mem B))
 
 (* Some notation for turning PredTypes into Pred or Simple Pred *)
 Notation "[ 'Mem' A ]" := (Pred_of_Simpl (Pred_of_Mem_Pred (Mem A)))
-  (at level 0, only parsing) : fun_scope.
+  (at level 0, only parsing) : function_scope.
 Notation "[ 'PredI' A & B ]" := (PredI [Mem A] [Mem B])
-  (at level 0, format "[ 'PredI'  A  &  B ]") : fun_scope.
+  (at level 0, format "[ 'PredI'  A  &  B ]") : function_scope.
 Notation "[ 'PredU' A & B ]" := (PredU [Mem A] [Mem B])
-  (at level 0, format "[ 'PredU'  A  &  B ]") : fun_scope.
+  (at level 0, format "[ 'PredU'  A  &  B ]") : function_scope.
 Notation "[ 'PredD' A & B ]" := (PredD [Mem A] [Mem B])
-  (at level 0, format "[ 'PredD'  A  &  B ]") : fun_scope.
+  (at level 0, format "[ 'PredD'  A  &  B ]") : function_scope.
 Notation "[ 'PredC' A ]" := (PredC [Mem A])
-  (at level 0, format "[ 'PredC'  A ]") : fun_scope.
+  (at level 0, format "[ 'PredC'  A ]") : function_scope.
 Notation "[ 'Preim' f 'of' A ]" := (Preim f [Mem A])
-  (at level 0, format "[ 'Preim'  f  'of'  A ]") : fun_scope.
+  (at level 0, format "[ 'Preim'  f  'of'  A ]") : function_scope.
 
 Notation "[ 'Pred' x \In A ]" := [Pred x | x \In A]
-  (at level 0, x ident, format "[ 'Pred'  x  \In  A ]") : fun_scope.
+  (at level 0, x ident, format "[ 'Pred'  x  \In  A ]") : function_scope.
 Notation "[ 'Pred' x \In A | E ]" := [Pred x | (x \In A) /\ E]
-  (at level 0, x ident, format "[ 'Pred'  x  \In  A  |  E ]") : fun_scope.
+  (at level 0, x ident, format "[ 'Pred'  x  \In  A  |  E ]") : function_scope.
 Notation "[ 'Pred' x y \In A & B | E ]" :=
   [Pred x y | (x \In A) /\ (y \In B) /\ E]
   (at level 0, x ident, y ident,
-   format "[ 'Pred'  x  y  \In  A  &  B  |  E ]") : fun_scope.
+   format "[ 'Pred'  x  y  \In  A  &  B  |  E ]") : function_scope.
 Notation "[ 'Pred' x y \In A & B ]" := [Pred x y | (x \In A) /\ (y \In B)]
   (at level 0, x ident, y ident,
-   format "[ 'Pred'  x  y  \In  A  &  B ]") : fun_scope.
+   format "[ 'Pred'  x  y  \In  A  &  B ]") : function_scope.
 Notation "[ 'Pred' x y \In A | E ]" := [Pred x y \In A & A | E]
   (at level 0, x ident, y ident,
-   format "[ 'Pred'  x  y  \In  A  |  E ]") : fun_scope.
+   format "[ 'Pred'  x  y  \In  A  |  E ]") : function_scope.
 Notation "[ 'Pred' x y \In A ]" := [Pred x y \In A & A]
   (at level 0, x ident, y ident,
-   format "[ 'Pred'  x  y  \In  A ]") : fun_scope.
+   format "[ 'Pred'  x  y  \In  A ]") : function_scope.
 
 Section Simplifications.
 Variables (T : Type) (pT : PredType T).

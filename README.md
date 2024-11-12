@@ -11,8 +11,8 @@ Follow the instructions on https://github.com/coq-community/templates to regener
 [![coqdoc][coqdoc-shield]][coqdoc-link]
 [![DOI][doi-shield]][doi-link]
 
-[docker-action-shield]: https://github.com/coq-community/lemma-overloading/workflows/Docker%20CI/badge.svg?branch=master
-[docker-action-link]: https://github.com/coq-community/lemma-overloading/actions?query=workflow:"Docker%20CI"
+[docker-action-shield]: https://github.com/coq-community/lemma-overloading/actions/workflows/docker-action.yml/badge.svg?branch=master
+[docker-action-link]: https://github.com/coq-community/lemma-overloading/actions/workflows/docker-action.yml
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -48,9 +48,10 @@ re-implementations for comparison.
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
-- Compatible Coq versions: 8.10 or later (use releases for other Coq versions)
+- Compatible Coq versions: 8.16 or later (use releases for other Coq versions)
 - Additional dependencies:
-  - [MathComp](https://math-comp.github.io) 1.10.0 or later (`ssreflect` suffices)
+  - [Hierarchy Builder](https://github.com/math-comp/hierarchy-builder) 1.5.0 or later
+  - [MathComp](https://math-comp.github.io) 2.0.0 or later (`ssreflect` suffices)
 - Coq namespace: `LemmaOverloading`
 - Related publication(s):
   - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
