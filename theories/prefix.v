@@ -15,8 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool ssrnat seq.
+From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat seq.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -81,4 +80,5 @@ Qed.
 
 End Prefix.
 
+#[export]
 Hint Resolve prefix_refl : core.

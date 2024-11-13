@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrfun ssrnat eqtype.
-From LemmaOverloading
-Require Import rels prelude.
+From mathcomp Require Import ssreflect ssrbool ssrfun ssrnat eqtype.
+From LemmaOverloading Require Import rels prelude.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -101,6 +99,7 @@ Proof. by case: T y x z=>S [[l b B R A Tr]] ? x y z; apply: (Tr). Qed.
 
 End Laws.
 
+#[export]
 Hint Resolve botP poset_refl : core.
 
 Add Parametric Relation (T : poset) : T (@Poset.leq T)

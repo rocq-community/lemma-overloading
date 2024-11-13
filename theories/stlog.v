@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool seq ssrfun.
-From LemmaOverloading
-Require Import heaps rels hprop stmod stsep.
+From mathcomp Require Import ssreflect ssrbool seq ssrfun.
+From LemmaOverloading Require Import heaps rels hprop stmod stsep.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -400,12 +398,14 @@ Prenex Implicits swp opn.
 Lemma blah (A : Type) (p : ptr) (l : A) : def (p :-> l) -> (p :-> l) \In p :--> l.
 Proof. by move=>H; apply/swp. Qed.
 
+#[export]
 Hint Immediate blah : core.
 
 Lemma blah2 (A : Type) (v1 v2 : A) q :
         def (q :-> v1) -> v1 = v2 -> q :-> v1 \In q :--> v2.
 Proof. by move=>D E; apply/swp; rewrite E. Qed.
 
+#[export]
 Hint Immediate blah2 : core.
 
 Ltac hauto := (do ?econstructor=>//;

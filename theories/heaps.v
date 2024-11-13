@@ -15,13 +15,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrnat div ssrbool seq.
-From LemmaOverloading
-Require Import prelude finmap ordtype.
-From mathcomp
-Require Import path eqtype.
-Require Import Eqdep.
+From Coq Require Import Eqdep.
+From HB Require Import structures.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq div.
+From LemmaOverloading Require Import prelude finmap ordtype.
+From mathcomp Require Import path.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -43,8 +41,7 @@ Definition eq_ptr (x y : ptr) :=
 Lemma eq_ptrP : Equality.axiom eq_ptr.
 Proof. by case=>x [y] /=; case: eqP=>[->|*]; constructor=>//; case. Qed.
 
-Definition ptr_eqMixin := EqMixin eq_ptrP.
-Canonical Structure ptr_eqType := EqType ptr ptr_eqMixin.
+HB.instance Definition _ := hasDecEq.Build ptr eq_ptrP.
 
 (* some pointer arithmetic: offsetting from a base *)
 
@@ -89,8 +86,8 @@ Proof. by case=>x [y][z]; apply: ltn_trans. Qed.
 Lemma ltn_ptr_total : forall x y : ptr, [|| ltn_ptr x y, x == y | ltn_ptr y x].
 Proof. by case=>x [y]; rewrite ptrE /=; case: ltngtP. Qed.
 
-Definition ptr_ordMixin := OrdMixin ltn_ptr_irr ltn_ptr_trans ltn_ptr_total.
-Canonical Structure ptr_ordType := OrdType ptr ptr_ordMixin.
+HB.instance Definition _ :=
+  isTotalOrder.Build ptr ltn_ptr_irr ltn_ptr_trans ltn_ptr_total.
 
 (*********)
 (* Heaps *)
@@ -302,6 +299,7 @@ Qed.
 Lemma def0 : def empty.
 Proof. by []. Qed.
 
+#[export]
 Hint Resolve def0 : core.
 
 Lemma defU h x d : def (upd h x d) = (x != null) && (def h).
@@ -636,6 +634,7 @@ Proof. by rewrite -lt0n addn1. Qed.
 
 Opaque fresh.
 
+#[export]
 Hint Resolve dom_fresh fresh_null : core.
 
 (********)
@@ -747,6 +746,7 @@ apply/subdomP=>[//||x in1]; first by apply negbT.
 by apply: (subdomQ H2) (subdomQ H1 in1).
 Qed.
 
+#[export]
 Hint Resolve subdom_emp subdomPE : core.
 
 (***********)
@@ -1180,6 +1180,7 @@ Notation "h1 =~ h2" := (loweq h1 h2) (at level 80).
 Lemma low_refl h : h =~ h.
 Proof. by rewrite /loweq. Qed.
 
+#[export]
 Hint Resolve low_refl : core.
 
 Lemma low_sym h1 h2 : (h1 =~ h2) = (h2 =~ h1).
@@ -1226,6 +1227,7 @@ Qed.
 Lemma lowPn A1 A2 (x : ptr) (v1 : A1) (v2 : A2) : x :-> v1 =~ x :-> v2.
 Proof. by apply/loweqP=>y; rewrite !ldomP !domPt. Qed.
 
+#[export]
 Hint Resolve lowPn : core.
 
 Lemma highPn A1 A2 (x1 x2 : ptr) (v1 : A1) (v2 : A2) :

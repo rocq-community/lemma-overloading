@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrnat eqtype.
-From LemmaOverloading
-Require Import heaps.
+From mathcomp Require Import ssreflect ssrbool ssrnat eqtype.
+From LemmaOverloading Require Import heaps.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -29,12 +27,14 @@ Class Indom (x : ptr) (h : heap) :=
 
 Obligation Tactic := idtac.
 
+#[export]
 Program Instance found : forall A x (v : A), Indom x (x:->v).
 Next Obligation.
 move=> A x v; rewrite defPt => xnull.
 by rewrite domPt !inE eq_refl xnull.
 Qed.
 
+#[export]
 Program Instance found_left :
   forall x h1 h2 (xh1 : Indom x h1), Indom x (h1:+h2).
 Next Obligation.
@@ -42,6 +42,7 @@ move=> x h1 h2 xh1 defh12; rewrite domUn !inE defh12.
 case: xh1 => xh1; by rewrite (xh1 (defUnl defh12)).
 Qed.
 
+#[export]
 Program Instance found_right :
   forall x h1 h2 (xh2 : Indom x h2), Indom x (h1:+h2).
 Next Obligation.

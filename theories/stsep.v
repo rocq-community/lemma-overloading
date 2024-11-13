@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool ssrnat ssrfun seq eqtype.
-From LemmaOverloading
-Require Import heaps rels hprop stmod.
+From mathcomp Require Import ssreflect ssrbool ssrnat ssrfun seq eqtype.
+From LemmaOverloading Require Import heaps rels hprop stmod.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -154,6 +152,7 @@ Local Notation conseq1 :=
 Lemma conseq_refl A (s : spec A) : conseq1 A s s.
 Proof. by case: s=>s1 s2 i H; apply: frame0. Qed.
 
+#[export]
 Hint Resolve conseq_refl : core.
 
 Section SepConseq.

@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool eqtype ssrfun seq.
-Require Import Eqdep ClassicalFacts.
+From Coq Require Import Eqdep ClassicalFacts.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype seq.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -72,7 +71,7 @@ Proof. by []. Qed.
 
 (* rewrite rule for propositional symmetry *)
 Lemma sym A (x y : A) : x = y <-> y = x.
-Proof. by []. Qed.
+Proof. by split. Qed.
 
 (* selecting a list element *)
 (* should really be in seq.v *)
@@ -161,6 +160,7 @@ Proof. by move=>pf; rewrite eqc. Qed.
 
 End Coercions.
 
+#[export]
 Hint Resolve jmeq_refl : core.
 Arguments jmeq T [A B] x y.
 Notation "a =jm b" := (jmeq id a b) (at level 50).
@@ -208,6 +208,7 @@ Proof. by move=>pf; rewrite eqc2. Qed.
 
 End Coercions2.
 
+#[export]
 Hint Resolve refl_jmeq2 : core.
 Arguments jmeq2 T [A1 A2 B1 B2] x y.
 

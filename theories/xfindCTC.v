@@ -15,10 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-From mathcomp
-Require Import ssreflect ssrnat seq.
-From LemmaOverloading
-Require Import prefix.
+From mathcomp Require Import ssreflect ssrnat seq.
+From LemmaOverloading Require Import prefix.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
@@ -36,15 +34,18 @@ Class XFind A (s : seq A) (e : A) := {
 
 Arguments XFind [A].
 
+#[export]
 Program Instance found_struct A (x:A) t : XFind (x :: t) x := {| seq_of := (x :: t); index_of := 0|}.
 Next Obligation. by split; [|apply: prefix_refl]. Qed.
 
+#[export]
 Program Instance recurse_struct A (y:A) t e (f : XFind t e) :
   XFind (y :: t) e | 2 := {| seq_of := (y :: seq_of); index_of := index_of.+1|}.
 Next Obligation.
 by case:f=>r i /= [H1 H2]; split; [|apply/prefix_cons].
 Qed.
 
+#[export]
 Program Instance extend_struct A (x:A) : XFind [::] x := {| seq_of := [:: x]; index_of := 0|}.
 Next Obligation. by []. Qed.
 
