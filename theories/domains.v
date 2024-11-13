@@ -99,6 +99,7 @@ Proof. by case: T y x z=>S [[l b B R A Tr]] ? x y z; apply: (Tr). Qed.
 
 End Laws.
 
+#[export]
 Hint Resolve botP poset_refl : core.
 
 Add Parametric Relation (T : poset) : T (@Poset.leq T)

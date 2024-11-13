@@ -34,6 +34,7 @@ Arguments Ast : clear implicits.
 
 
 (* pass output context of f1 as input of f2 *)
+#[export]
 Program Instance
   union_struct i j k t1 t2 h1 h2 (f1 : Ast i j t1 h1) (f2 : Ast j k t2 h2) :
   Ast i k (t1 ++ t2) (h1 :+ h2) | 3.
@@ -44,12 +45,14 @@ split; first by rewrite interp_cat (interp_subctx D1 S2).
 by rewrite valid_cat D2 andbT; apply: (valid_subctx S2).
 Qed.
 
+#[export]
 Program Instance empty_struct i :
   Ast i i [::] empty | 1.
 Next Obligation.
 split; by [|apply: subctx_refl|].
 Qed.
 
+#[export]
 Program Instance
   pts_struct A hs xs1 x (d : A)
            (f : XFind xs1 x) :
@@ -62,7 +65,7 @@ case: f=>[xs2 n /= [H P]]; split; first by rewrite /= H.
 by apply/andP; rewrite /= (onth_size H).
 Qed.
 
-
+#[export]
 Program Instance var_struct hs1 xs h (f : XFind hs1 h) :
   Ast (Context hs1 xs) (Context seq_of xs) [:: Var index_of] h | 1000.
 Next Obligation.

@@ -80,4 +80,5 @@ Qed.
 
 End Prefix.
 
+#[export]
 Hint Resolve prefix_refl : core.

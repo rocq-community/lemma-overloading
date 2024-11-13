@@ -256,5 +256,6 @@ Proof. by move=>*; rewrite !catA perm_cat2r. Qed.
 
 End Permutations.
 
+#[export]
 Hint Resolve perm_refl perm_catC perm_cons_catCA
              perm_cons_catAC perm_catAC perm_catCA : core.

@@ -160,6 +160,7 @@ Proof. by move=>pf; rewrite eqc. Qed.
 
 End Coercions.
 
+#[export]
 Hint Resolve jmeq_refl : core.
 Arguments jmeq T [A B] x y.
 Notation "a =jm b" := (jmeq id a b) (at level 50).
@@ -207,6 +208,7 @@ Proof. by move=>pf; rewrite eqc2. Qed.
 
 End Coercions2.
 
+#[export]
 Hint Resolve refl_jmeq2 : core.
 Arguments jmeq2 T [A1 A2 B1 B2] x y.
 

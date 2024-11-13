@@ -29,11 +29,13 @@ Arguments update1 [h1 h2 k1 k2].
 Arguments update2 [h1 h2 k1 k2].
 Arguments rest [h1 h2 k1 k2].
 
+#[export]
 Program
 Instance found_struct k1 k2 : Update k1 k2 k1 k2 | 1 := {| rest := empty |}.
 Next Obligation. by rewrite unh0. Qed.
 Next Obligation. by rewrite unh0. Qed.
 
+#[export]
 Program
 Instance left_struct l h1 h2 k1 k2 (f : Update h1 h2 k1 k2) :
   Update (l :+ h1) (l :+ h2) k1 k2 | 2 := {| rest := (l :+ rest f) |}.
@@ -46,6 +48,7 @@ have H : h2 = k2 :+ (rest f) by eapply (update2 f).
 by rewrite -unCA -H.
 Qed.
 
+#[export]
 Program
 Instance right_struct l h1 h2 k1 k2 (f : Update h1 h2 k1 k2) :
   Update (h1 :+ l) (h2 :+ l) k1 k2 | 2 := {| rest := (rest f :+ l) |}.
@@ -95,15 +98,18 @@ End EvalDeallocR.
 Class Find1 (h k : heap) :=
   { rest1 : heap; heq1 : h = k :+ rest1}.
 
+#[export]
 Program
 Instance ffound_struct1 k : Find1 k k | 1 := {| rest1 := empty|}.
 Next Obligation. by rewrite unh0. Qed.
 
+#[export]
 Program
 Instance fleft_struct1 l r k (f : Find1 l k) :
   Find1 (l :+ r) k | 2 := {| rest1 := rest1 :+ r |}.
 Next Obligation. by rewrite unA -heq1.  Qed.
 
+#[export]
 Program
 Instance fright_struct1 l r k (f : Find1 r k) :
   Find1 (l :+ r) k | 2 := {| rest1 :=  l :+ rest1 |}.

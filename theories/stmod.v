@@ -406,6 +406,7 @@ Definition conseq A (s1 s2 : spec A) :=
 Lemma conseq_refl (A : Type) (s : spec A) : conseq s s.
 Proof. by []. Qed.
 
+#[export]
 Hint Resolve conseq_refl : core.
 
 Section Consequence.

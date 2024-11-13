@@ -152,6 +152,7 @@ Local Notation conseq1 :=
 Lemma conseq_refl A (s : spec A) : conseq1 A s s.
 Proof. by case: s=>s1 s2 i H; apply: frame0. Qed.
 
+#[export]
 Hint Resolve conseq_refl : core.
 
 Section SepConseq.

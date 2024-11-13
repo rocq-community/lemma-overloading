@@ -33,6 +33,7 @@ Class Scan (h : heap) :=
         { seq_of : seq ptr ;
           scan : scan_axiom h seq_of }.
 
+#[export]
 Program Instance scan_union h1 h2 (f1 : Scan h1) (f2 : Scan h2) :
                    Scan (h1:+h2) | 2 := {| seq_of := @seq_of _ f1 ++ @seq_of _ f2 |}.
 Next Obligation.
@@ -46,12 +47,14 @@ apply/allP=>x; move/H2=>H3; apply: (introN idP); move/H1=>H4.
 by case: defUn D=>// _ _; move/(_ _ H4); rewrite H3.
 Qed.
 
+#[export]
 Program Instance scan_ptr A x (v : A) : Scan (x:->v) | 1 := {| seq_of :=  [:: x] |}.
 Next Obligation.
 rewrite /scan_axiom /= defPt => D; split=>//.
 by move=>y; rewrite inE; move/eqP=>->; rewrite domPt inE /= eq_refl D.
 Qed.
 
+#[export]
 Program Instance scan_default h : Scan h | 10 := {| seq_of := [::] |}.
 Next Obligation.
 by move=>_; split.
@@ -73,11 +76,13 @@ Abort.
 Class Search (x : ptr) (s : seq ptr) :=
         { search : x \in s }.
 
+#[export]
 Program Instance search_found x s : Search x (x :: s).
 Next Obligation.
 by rewrite inE eq_refl.
 Qed.
 
+#[export]
 Program Instance search_recurse x y s (f : Search x s) : Search x (y :: s) | 5.
 Next Obligation.
 by case: f; rewrite inE=>->; rewrite orbT.
@@ -95,18 +100,21 @@ Definition search2_axiom (x y : ptr) (s : seq ptr) :=
 
 Class Search2 x y s := { search2 : search2_axiom x y s}.
 
+#[export]
 Program Instance search2_foundx x y s (s1 : Search y s) : Search2 x y (x :: s).
 Next Obligation.
 case: s1=>s2; rewrite /search2_axiom !inE eq_refl.
 by rewrite s2 orbT; split=>//; case/andP=>H2 _; case: eqP s2 H2=>// -> ->.
 Qed.
 
+#[export]
 Program Instance search2_foundy x y s (f : Search x s) : Search2 x y (y :: s).
 Next Obligation.
 case: f=>H1; rewrite /search2_axiom !inE eq_refl.
 by rewrite H1 orbT; split=>//; case/andP=>H2 _; case: eqP H1 H2=>// -> ->.
 Qed.
 
+#[export]
 Program Instance search2_foundz x y z s (f : Search2 x y s) : Search2 x y (z :: s) | 1.
 Next Obligation.
 case: f=>[[H1 H2 H3]].
@@ -134,6 +142,7 @@ Qed.
 
 Arguments noaliasR [h x y sc s2].
 
+#[export]
 Hint Extern 20 (Search2 _ _ _) => progress simpl  : typeclass_instances.
 
 Example ex_noalias x1 x2 : def (x2 :-> 1 :+ x1 :-> 2) -> x1 != x2.
