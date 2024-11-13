@@ -15,11 +15,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
+From Coq Require Import Eqdep.
 From HB Require Import structures.
-From mathcomp Require Import ssreflect ssrfun ssrnat div ssrbool seq.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq div.
 From LemmaOverloading Require Import prelude finmap ordtype.
-From mathcomp Require Import path eqtype.
-Require Import Eqdep.
+From mathcomp Require Import path.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.

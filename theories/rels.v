@@ -15,8 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
+From Coq Require Import Setoid.
 From mathcomp Require Import ssreflect ssrfun ssrbool seq.
-Require Import Setoid.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.

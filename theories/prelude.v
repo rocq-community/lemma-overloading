@@ -15,8 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 
-Require Import Eqdep ClassicalFacts.
-From mathcomp Require Import ssreflect ssrbool eqtype ssrfun seq.
+From Coq Require Import Eqdep ClassicalFacts.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype seq.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
