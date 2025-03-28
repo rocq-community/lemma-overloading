@@ -53,55 +53,37 @@ license:
   file: LICENSE.md
 
 supported_coq_versions:
-  text: 8.16 or later (use releases for other Coq versions)
-  opam: '{>= "8.16"}'
+  text: 9.0 or later (use releases for other Rocq/Coq versions)
+  opam: '{>= "9.0"}'
 
 tested_coq_opam_versions:
-- version: '2.0.0-coq-8.16'
+- version: '2.4.0-rocq-prover-9.0'
   repo: 'mathcomp/mathcomp'
-- version: '2.0.0-coq-8.17'
+- version: '2.4.0-rocq-prover-9.1'
   repo: 'mathcomp/mathcomp'
-- version: '2.0.0-coq-8.18'
+- version: '2.5.0-rocq-prover-9.0'
   repo: 'mathcomp/mathcomp'
-- version: '2.1.0-coq-8.16'
+- version: '2.5.0-rocq-prover-9.1'
   repo: 'mathcomp/mathcomp'
-- version: '2.1.0-coq-8.17'
-  repo: 'mathcomp/mathcomp'
-- version: '2.1.0-coq-8.18'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-8.16'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-8.17'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-8.18'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-8.19'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-8.20'
-  repo: 'mathcomp/mathcomp'
-- version: '2.2.0-coq-dev'
-  repo: 'mathcomp/mathcomp'
-- version: 'coq-8.18'
+- version: 'rocq-prover-9.0'
   repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-8.19'
+- version: 'rocq-prover-9.1'
   repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-8.20'
-  repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-dev'
+- version: 'rocq-prover-dev'
   repo: 'mathcomp/mathcomp-dev'
 
 dependencies:
 - opam:
     name: coq-hierarchy-builder
-    version: '{>= "1.5.0"}'
+    version: '{>= "1.7.0"}'
   description: |-
-    [Hierarchy Builder](https://github.com/math-comp/hierarchy-builder) 1.5.0 or later
+    [Hierarchy Builder](https://github.com/math-comp/hierarchy-builder) 1.7.0 or later
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{>= "2.0"}'
+    version: '{>= "2.4"}'
   nix: ssreflect
   description: |-
-    [MathComp](https://math-comp.github.io) 2.0.0 or later (`ssreflect` suffices)
+    [MathComp](https://math-comp.github.io) 2.4.0 or later (`ssreflect` suffices)
 
 namespace: LemmaOverloading
 

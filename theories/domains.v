@@ -52,7 +52,7 @@ Local Coercion sort : type >-> Sortclass.
 
 Variables (T : Type) (cT : type).
 Definition class := let: Pack _ c _ as cT' := cT return class_of cT' in c.
-Definition clone c of phant_id class c := @Pack T c T.
+Definition clone c & phant_id class c := @Pack T c T.
 
 (* produce a poset type out of the mixin *)
 (* equalize m0 and m by means of a phantom *)
@@ -385,7 +385,7 @@ Local Coercion sort : type >-> Sortclass.
 
 Variables (T : Type) (cT : type).
 Definition class := let: Pack _ c _ as cT' := cT return class_of cT' in c.
-Definition clone c of phant_id class c := @Pack T c T.
+Definition clone c & phant_id class c := @Pack T c T.
 
 (* produce a lattice type out of the mixin *)
 (* equalize m0 and m by means of a phantom *)
@@ -951,7 +951,7 @@ Local Coercion sort : type >-> Sortclass.
 
 Variables (T : Type) (cT : type).
 Definition class := let: Pack _ c _ as cT' := cT return class_of cT' in c.
-Definition clone c of phant_id class c := @Pack T c T.
+Definition clone c & phant_id class c := @Pack T c T.
 
 Definition pack b0 (m0 : mixin_of (Poset.Pack b0 T)) :=
   fun m & phant_id m0 m => Pack (@Class T b0 m) T.
