@@ -61,7 +61,7 @@ Proof. by split=>E n; [apply: (E n.+1) | case: n]. Qed.
 Lemma prefix_cons' x y s1 s2 : prefix (x :: s1) (y :: s2) -> x = y /\ prefix s1 s2.
 Proof.
 move=>H; move: (H 0 x (erefl _))=>[H'].
-by move: H; rewrite H' prefix_cons.
+by move: H; rewrite H' => /prefix_cons.
 Qed.
 
 Lemma prefix_size (s t : seq A) : prefix s t -> size s <= size t.

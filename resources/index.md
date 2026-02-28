@@ -1,4 +1,6 @@
 ---
+# This file was generated from `meta.yml`, please do not edit manually.
+# Follow the instructions on https://github.com/coq-community/templates to regenerate.
 title: Lemma Overloading
 lang: en
 header-includes:
@@ -10,9 +12,9 @@ header-includes:
     <style type="text/css"> body { width: 1100px; margin-left: 30px; }</style>
 ---
 
-<div style="text-align:left"><img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" height="25" style="border:0px">
-[View the project on GitHub](https://github.com/coq-community/lemma-overloading)
-<img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" height="25" style="border:0px"></div>
+<div style="text-align:left"><img src="https://gist.github.com/johan/1007813/raw/a25829510f049194b6404a8f98d22978e8744a6f/octocat.svg" height="25" style="border:0px">
+<a href="https://github.com/coq-community/lemma-overloading">View the project on GitHub</a>
+<img src="https://gist.github.com/johan/1007813/raw/a25829510f049194b6404a8f98d22978e8744a6f/octocat.svg" height="25" style="border:0px"></div>
 
 ## About
 
@@ -53,7 +55,10 @@ Other related publications, if any, are listed below.
 
 ## Authors and contributors
 
-- Georges Gonthier
-- Beta Ziliani
-- Aleksandar Nanevski
-- Derek Dreyer
+- Georges Gonthier (initial)
+- Beta Ziliani (initial)
+- Aleksandar Nanevski (initial)
+- Derek Dreyer (initial)
+
+
+

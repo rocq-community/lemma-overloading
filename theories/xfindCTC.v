@@ -42,7 +42,7 @@ Next Obligation. by split; [|apply: prefix_refl]. Qed.
 Program Instance recurse_struct A (y:A) t e (f : XFind t e) :
   XFind (y :: t) e | 2 := {| seq_of := (y :: seq_of); index_of := index_of.+1|}.
 Next Obligation.
-by case:f=>r i /= [H1 H2]; split; [|apply/prefix_cons].
+by move=> A y t e [r i]/= [H1 H2]; split; last apply/prefix_cons.
 Qed.
 
 #[export]

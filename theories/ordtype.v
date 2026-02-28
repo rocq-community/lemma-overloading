@@ -16,12 +16,13 @@
 *)
 
 From HB Require Import structures.
-From mathcomp Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq fintype.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice.
+From mathcomp Require Import fintype.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
 
-HB.mixin Record isTotalOrder T of Equality T := {
+HB.mixin Record isTotalOrder T & Equality T := {
   ord : rel T;
   irr : irreflexive ord;
   trans : transitive ord;

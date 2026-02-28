@@ -45,14 +45,14 @@ re-implementations for comparison.
   - Beta Ziliani (initial)
   - Aleksandar Nanevski (initial)
   - Derek Dreyer (initial)
-- Coq-community maintainer(s):
+- Rocq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
-- Compatible Coq versions: 8.16 or later (use releases for other Coq versions)
+- Compatible Rocq/Coq versions: 9.0 or later (use releases for other Rocq/Coq versions)
 - Additional dependencies:
-  - [Hierarchy Builder](https://github.com/math-comp/hierarchy-builder) 1.5.0 or later
-  - [MathComp](https://math-comp.github.io) 2.0.0 or later (`ssreflect` suffices)
-- Coq namespace: `LemmaOverloading`
+  - [Hierarchy Builder](https://github.com/math-comp/hierarchy-builder) 1.7.0 or later
+  - [MathComp](https://math-comp.github.io) 2.4.0 or later (`ssreflect` suffices)
+- Rocq/Coq namespace: `LemmaOverloading`
 - Related publication(s):
   - [How to make ad hoc proof automation less ad hoc](https://software.imdea.org/~aleks/papers/lessadhoc/journal.pdf) doi:[10.1017/S0956796813000051](https://doi.org/10.1017/S0956796813000051)
   - [Structuring the verification of heap-manipulating programs](https://software.imdea.org/~aleks/papers/reflect/reflect.pdf) doi:[10.1145/1706299.1706331](https://doi.org/10.1145/1706299.1706331)
@@ -63,15 +63,19 @@ The easiest way to install the latest released version of Lemma Overloading
 is via [OPAM](https://opam.ocaml.org/doc/Install.html):
 
 ```shell
-opam repo add coq-released https://coq.inria.fr/opam/released
+opam repo add rocq-released https://rocq-prover.org/opam/released
 opam install coq-lemma-overloading
 ```
 
-To instead build and install manually, do:
+To instead build and install manually, you need to make sure that all the
+libraries this development depends on are installed.  The easiest way to do that
+is still to rely on opam:
 
 ``` shell
 git clone https://github.com/coq-community/lemma-overloading.git
 cd lemma-overloading
+opam repo add rocq-released https://rocq-prover.org/opam/released
+opam install --deps-only .
 make   # or make -j <number-of-cores-on-your-machine> 
 make install
 ```
