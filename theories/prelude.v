@@ -17,6 +17,13 @@
 
 From Coq Require Import Eqdep ClassicalFacts.
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype seq.
+
+(* This development relies on the historical goal order of conditional
+   ssreflect rewrites (main goal first, side conditions last), which
+   MathComp <= 2.5.0 used to enable globally on our behalf.  MathComp dev
+   no longer sets the option, so set it here for the whole library. *)
+#[global] Set SsrOldRewriteGoalsOrder.
+
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
